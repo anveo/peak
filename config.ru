@@ -5,5 +5,5 @@ require 'bundler'
 
 Bundler.require
 
-require 'peak_app'
-run PeakApp
+require 'peak-app'
+run Peak::Application
