@@ -1,21 +1,49 @@
 body {
   font-family: 'Droid Sans', sans-serif;
+  background: #151515;
 }
 
 header {
-  height: 75px;
+  height: 100px;
   background: black;
   color: white;
 }
 
 nav.overlook {
+  background: #151515;
   width: 15%;
-  background: white;
   float: left;
 
   h3 {
-    background: black;
     color: white;
+  }
+}
+
+ul.servers > li {
+  color: white;
+  padding: 10px 10px 10px 15px;
+  font-size: 14px;
+
+  a {
+    color: #cccccc;
+  }
+}
+
+ul.collection > li {
+  height: 40px;
+  background: #0c0c0c url(/images/bg_black.png) repeat-x 0px -1px;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+
+  a {
+    color: #cccccc;
+  }
+
+  &:hover {
+    color: white;
+    text-decoration: none;
   }
 }
 

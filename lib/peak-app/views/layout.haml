@@ -17,6 +17,7 @@
 %body
   #container
     %header
+      <img src="/images/header-trans.png" />
     #main{:role => "main"}
       = yield
     %footer
@@ -26,8 +27,10 @@
   %script{:src => "/javascripts/vendor/backbone.js"}
   %script{:src => "/javascripts/vendor/highstock/highstock.js"}
   %script{:src => "/javascripts/vendor/highstock/themes/peak.js"}
+  %script{:src => "/javascripts/vendor/jquery.cookie.js"}
   %script{:src => "/javascripts/application.js"}
   %script{:src => "/javascripts/peak.js"}
+      
   = yield_content :footer
   /[if lt IE 7 ]
     <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>

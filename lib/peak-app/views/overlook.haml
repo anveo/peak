@@ -1,11 +1,9 @@
 %nav.overlook
-  %h2 Overlook
-
   %h3 Collections
-  %ul.collection
+  %ul.collection.menu
     %li 
       <a href="#">App Servers</a>
-      %ul.graphs
+      %ul.graphs{:style => 'display:none;'}
         %li CPU
         %li Memory
         %li Disk I/O
@@ -13,11 +11,15 @@
     %li
       <a href="#">DB Servers</a>
   %h3 Servers
-  %ul.servers
-    %li app1.example.com
-    %li app2.example.com
-    %li db1.example.com
-    %li db2.example.com
+  %ul.servers.menu
+    %li 
+      <a href="#">app1.example.com</a>
+    %li
+      <a href="#">app2.example.com</a>
+    %li
+      <a href="#">db1.example.com</a>
+    %li
+      <a href="#">db1.example.com</a>
 
 #graphs
   .graph-container
