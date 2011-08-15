@@ -4,6 +4,8 @@ require 'active_support/all'
 require 'json'
 require 'rrd'
 
+require 'rrd_query'
+
 require 'pp'
 
 module Peak
@@ -17,16 +19,22 @@ module Peak
     set :views,  @app_root.join('lib/peak-app/views')
 
     get '/' do
-      filename = File.join(File.dirname(__FILE__), "..", "tmp/spengler.jetpackweb.com/load/load.rrd")
-      rrd = RRD::Base.new(filename)
 
-      stats = rrd.fetch(:average, :start => 1.hour.ago, :end => Time.now)
+      @data = RRDQuery.as_json('load', 1.hour.ago, Time.now)
 
-      #remove header
-      stats.shift
+      @deploy_data = [{
+        :title => 'Deploy',
+        :x => (Time.now - 50.minutes).to_i * 1000
+      },
+      {
+        :title => 'Deploy',
+        :x => (Time.now - 20.minutes).to_i * 1000
+      }].to_json
 
-      @data = stats.map { |d| [ d[0] * 1000, rand ] }
-      @data = @data.to_json
+      @analytics_data = [{
+        :title => 'Article on TechCrunch',
+        :x => (Time.now - 13.minutes).to_i * 1000
+      }].to_json
 
       haml :overlook
     end

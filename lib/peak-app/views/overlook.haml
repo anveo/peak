@@ -31,6 +31,8 @@
     <script type="text/javascript">
     $(function() {
       window.grapher.data = <%= @data %>;
+      window.grapher.deploy_data = <%= @deploy_data %>;
+      window.grapher.analytics_data = <%= @analytics_data %>;
       window.grapher.render();
     });
     </script>
