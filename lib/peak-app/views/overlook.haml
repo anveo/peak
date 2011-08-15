@@ -1,0 +1,35 @@
+%nav.overlook
+  %h2 Overlook
+
+  %h3 Collections
+  %ul.collection
+    %li 
+      <a href="#">App Servers</a>
+      %ul.graphs
+        %li CPU
+        %li Memory
+        %li Disk I/O
+        %li Net Traffic
+    %li
+      <a href="#">DB Servers</a>
+  %h3 Servers
+  %ul.servers
+    %li app1.example.com
+    %li app2.example.com
+    %li db1.example.com
+    %li db2.example.com
+
+#graphs
+  .graph-container
+    .controls
+    #graph-cpu
+
+:erb
+  <% content_for :footer do %> 
+    <script type="text/javascript">
+    $(function() {
+      window.grapher.data = <%= @data %>;
+      window.grapher.render();
+    });
+    </script>
+  <% end %>
