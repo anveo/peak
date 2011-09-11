@@ -15,7 +15,9 @@ group :development do
   #gem "rerun"
   gem "shotgun"
   gem 'therubyracer'
-  #gem "thin"
+  gem "thin"
+  gem "ruby-debug", :platforms => :mri_18
+  gem "ruby-debug19", :platforms => :mri_19
 end
 
 group :production do
