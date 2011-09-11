@@ -24,38 +24,38 @@ module Peak
 
     get '/' do
 
-      @graphs = []
-
       load_graph = Peak::Graph.new("Load") do
         type = "area"
         y_min = 0
+        add_source 'load/load' , :label => 'Load' 
       end
-      load_graph.add_source('load/load' , :label => 'Load')
-      @graphs << load_graph
 
       memory_graph = Peak::Graph.new("Memory") do
         type = "stacked"
         y_min = 0
+        add_source 'memory/memory-free'     , :label => 'Free'
+        add_source 'memory/memory-wired'    , :label => 'Wired'
+        add_source 'memory/memory-inactive' , :label => 'Inactive'
+        add_source 'memory/memory-active'   , :label => 'Active'
       end
-      memory_graph.add_source('memory/memory-free'     , :label => 'Free')
-      memory_graph.add_source('memory/memory-wired'    , :label => 'Wired')
-      memory_graph.add_source('memory/memory-inactive' , :label => 'Inactive')
-      memory_graph.add_source('memory/memory-active'   , :label => 'Active')
-      @graphs << memory_graph
 
       disk_graph = Peak::Graph.new("Disk /") do
         type = "stacked"
+        add_source 'df-root/df_complex-free' , :label => 'Free'
+        add_source 'df-root/df_complex-used' , :label => 'Used'
       end
-      disk_graph.add_source('df-root/df_complex-free'  , :label => 'Free')
-      disk_graph.add_source('df-root/df_complex-used'  , :label => 'Used')
-      @graphs << disk_graph
 
       if_graph = Peak::Graph.new("Interface en0") do
         type = "line"
+        add_source 'interface-en0/if_packets' , :label => 'Packets'
+        add_source 'interface-en0/if_octets'  , :label => 'Octets'
+        add_source 'interface-en0/if_errors'  , :label => 'Errors'
       end
-      if_graph.add_source('interface-en0/if_packets'  , :label => 'Packets')
-      if_graph.add_source('interface-en0/if_octets'  , :label => 'Octets')
-      if_graph.add_source('interface-en0/if_errors'  , :label => 'Errors')
+
+      @graphs = []
+      @graphs << load_graph
+      @graphs << memory_graph
+      @graphs << disk_graph
       @graphs << if_graph
 
       #@deploy_data = [{
