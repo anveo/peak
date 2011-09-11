@@ -24,16 +24,24 @@
 #graphs
   .graph-container
     .controls
-    #graph-cpu
 
 :erb
   <% content_for :footer do %> 
     <script type="text/javascript">
     $(function() {
-      window.grapher.data = <%= @data %>;
-      window.grapher.deploy_data = <%= @deploy_data %>;
-      window.grapher.analytics_data = <%= @analytics_data %>;
-      window.grapher.render();
+
+      <% @graphs.each_with_index do |graph, i| %>
+        $container = $('<div id="<%= graph.dom_id %>" />');
+        $('#graphs > .graph-container').append($container);
+        var graph_<%= i %> = new Graph('<%= graph.type %>', {
+          title: '<%= graph.title %>',
+          domId: '<%= graph.dom_id %>'
+        });
+        <% graph.data_sources.each do |ds| %>
+          graph_<%= i %>.addDataSource('<%= ds.label %>', <%= ds.as_json %>);
+        <% end %>
+        graph_<%= i %>.render();
+      <% end %>
     });
     </script>
   <% end %>

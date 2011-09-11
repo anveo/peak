@@ -4,7 +4,11 @@ require 'active_support/all'
 require 'json'
 require 'rrd'
 
-require 'rrd_query'
+require 'peak-app/lib/rrd_query'
+require 'peak-app/lib/graph'
+require 'peak-app/lib/collection'
+require 'peak-app/lib/node'
+require 'peak-app/lib/data_source'
 
 require 'pp'
 
@@ -20,31 +24,55 @@ module Peak
 
     get '/' do
 
-      @data = RRDQuery.as_json('load', 1.hour.ago, Time.now)
+      @graphs = []
 
-      @deploy_data = [{
-        :title => 'Deploy',
-        :x => (Time.now - 50.minutes).to_i * 1000
-      },
-      {
-        :title => 'Deploy',
-        :x => (Time.now - 20.minutes).to_i * 1000
-      }].to_json
+      load_graph = Peak::Graph.new("Load") do
+        type = "area"
+        y_min = 0
+      end
+      load_graph.add_source('load/load' , :label => 'Load')
+      @graphs << load_graph
 
-      @analytics_data = [{
-        :title => 'Article on TechCrunch',
-        :x => (Time.now - 13.minutes).to_i * 1000
-      }].to_json
+      memory_graph = Peak::Graph.new("Memory") do
+        type = "stacked"
+        y_min = 0
+      end
+      memory_graph.add_source('memory/memory-free'     , :label => 'Free')
+      memory_graph.add_source('memory/memory-wired'    , :label => 'Wired')
+      memory_graph.add_source('memory/memory-inactive' , :label => 'Inactive')
+      memory_graph.add_source('memory/memory-active'   , :label => 'Active')
+      @graphs << memory_graph
+
+      disk_graph = Peak::Graph.new("Disk /") do
+        type = "stacked"
+      end
+      disk_graph.add_source('df-root/df_complex-free'  , :label => 'Free')
+      disk_graph.add_source('df-root/df_complex-used'  , :label => 'Used')
+      @graphs << disk_graph
+
+      if_graph = Peak::Graph.new("Interface en0") do
+        type = "line"
+      end
+      if_graph.add_source('interface-en0/if_packets'  , :label => 'Packets')
+      if_graph.add_source('interface-en0/if_octets'  , :label => 'Octets')
+      if_graph.add_source('interface-en0/if_errors'  , :label => 'Errors')
+      @graphs << if_graph
+
+      #@deploy_data = [{
+        #:title => 'Deploy',
+        #:x => (Time.now - 50.minutes).to_i * 1000
+      #},
+      #{
+        #:title => 'Deploy',
+        #:x => (Time.now - 20.minutes).to_i * 1000
+      #}].to_json
+
+      #@analytics_data = [{
+        #:title => 'Article on TechCrunch',
+        #:x => (Time.now - 13.minutes).to_i * 1000
+      #}].to_json
 
       haml :overlook
-    end
-
-    get '/javascripts/application.js' do
-      coffee "javascripts/application".to_sym
-    end
-
-    get '/stylesheets/application.css' do
-      scss "stylesheets/application".to_sym
     end
   end
 end

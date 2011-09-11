@@ -25,12 +25,13 @@
   %script{:src => "/javascripts/vendor/jquery-1.6.2.js"}
   %script{:src => "/javascripts/vendor/underscore.js"}
   %script{:src => "/javascripts/vendor/backbone.js"}
+  %script{:src => "/javascripts/vendor/highcharts/highcharts.js"}
   %script{:src => "/javascripts/vendor/highstock/highstock.js"}
   %script{:src => "/javascripts/vendor/highstock/themes/peak.js"}
-  %script{:src => "/javascripts/vendor/jquery.cookie.js"}
-  %script{:src => "/javascripts/application.js"}
   %script{:src => "/javascripts/peak.js"}
-      
+  %script{:src => "/javascripts/compiled/graph.js"}
+  %script{:src => "/javascripts/compiled/data_source.js"}
+
   = yield_content :footer
   /[if lt IE 7 ]
     <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
