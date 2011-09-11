@@ -1,5 +1,5 @@
 *.DS_Store
 .sass-cache
-public/javascripts/compiled
-public/stylesheets/compiled
+lib/peak-app/public/javascripts/compiled/*
+lib/peak-app/public/stylesheets/compiled/*
 tmp
