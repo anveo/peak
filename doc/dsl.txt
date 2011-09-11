@@ -1,0 +1,48 @@
+
+graph
+  host:string
+  title:string
+  type:
+    line
+    area
+    area_stack
+  series [
+    {
+      label:string
+      color:hex
+      datums:[]
+      min:int
+      max:int
+    },
+    ...
+  ]
+
+=========================================
+
+graph "load" do
+  area_chart do
+    rrd_file "load/load.rrd"
+    color: #ff0000
+  end
+end
+
+graph "memory" do
+  area_stacked_chart do
+    rrd_file "memory/memory_active.rrd"
+    label "Active"
+    color #ff0000
+
+    rrd_file "memory/memory_inactive.rrd"
+    label "Inactive"
+    color #ff0000
+  end
+end
+
+server "node1.example.com" do
+  include "load"
+  include "memory"
+end
+
+collection "appservers" do
+  server "node1.example.com"
+end
