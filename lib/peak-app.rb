@@ -4,11 +4,7 @@ require 'active_support/all'
 require 'json'
 require 'rrd'
 
-require 'peak-app/lib/rrd_query'
-require 'peak-app/lib/graph'
-require 'peak-app/lib/collection'
-require 'peak-app/lib/node'
-require 'peak-app/lib/data_source'
+require 'peak-app/lib/peak'
 
 require 'pp'
 

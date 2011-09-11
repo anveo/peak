@@ -9,11 +9,13 @@ module Peak
       rrd = RRD::Base.new(filename)
       stats = rrd.fetch(:average, :start => 1.hour.ago, :end => Time.now)
 
-      p rrd
-      p rrd.error
+      #p rrd
+      #p rrd.error
 
       #remove header
       stats.shift
+
+      #p stats.first
 
       data = []
       stats.each do |s|
