@@ -18,8 +18,9 @@ module Peak
     set :public, @app_root.join('lib/peak-app/public')
     set :views,  @app_root.join('lib/peak-app/views')
 
+    Peak.load_config
+
     before do
-      Peak.load_config
     end
 
     get '/' do
