@@ -3,13 +3,14 @@ module Peak
 
     VALID_TYPES = [:area, :line, :stacked]
 
+    attr_accessor :id
     attr_accessor :title
     attr_accessor :type
     attr_accessor :data_sources
     attr_reader :y_min, :y_max
 
-    def initialize(title, &block)
-      @title = title || ""
+    def initialize(id, &block)
+      @title = id.humanize
       @data_sources = []
       @type = :area
 

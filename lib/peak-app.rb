@@ -20,39 +20,7 @@ module Peak
 
     get '/' do
 
-      load_graph = Peak::Graph.new("Load") do
-        type = "area"
-        y_min = 0
-        add_source 'load/load' , :label => 'Load' 
-      end
-
-      memory_graph = Peak::Graph.new("Memory") do
-        type = "stacked"
-        y_min = 0
-        add_source 'memory/memory-free'     , :label => 'Free'
-        add_source 'memory/memory-wired'    , :label => 'Wired'
-        add_source 'memory/memory-inactive' , :label => 'Inactive'
-        add_source 'memory/memory-active'   , :label => 'Active'
-      end
-
-      disk_graph = Peak::Graph.new("Disk /") do
-        type = "stacked"
-        add_source 'df-root/df_complex-free' , :label => 'Free'
-        add_source 'df-root/df_complex-used' , :label => 'Used'
-      end
-
-      if_graph = Peak::Graph.new("Interface en0") do
-        type = "line"
-        add_source 'interface-en0/if_packets' , :label => 'Packets'
-        add_source 'interface-en0/if_octets'  , :label => 'Octets'
-        add_source 'interface-en0/if_errors'  , :label => 'Errors'
-      end
-
-      @graphs = []
-      @graphs << load_graph
-      @graphs << memory_graph
-      @graphs << disk_graph
-      @graphs << if_graph
+      Peak.load_config
 
       #@deploy_data = [{
         #:title => 'Deploy',

@@ -15,19 +15,12 @@
   </ul>
 
   <h3>Servers</h3>
-  <ul class="servers meun">
+  <ul class="servers menu">
+    <% Peak.hosts.each do |host| %>
     <li>
-      <a href="#">app1.example.com</a>
+      <a href="#"><%= host.name %></a>
     </li>
-    <li>
-      <a href="#">app2.example.com</a>
-    </li>
-    <li>
-      <a href="#">app3.example.com</a>
-    </li>
-    <li>
-      <a href="#">app3.example.com</a>
-    </li>
+    <% end %>
   </ul>
 </nav>
 
@@ -41,7 +34,7 @@
   <script type="text/javascript">
   $(function() {
 
-    <% @graphs.each_with_index do |graph, i| %>
+    <% Peak.graphs.each_with_index do |graph, i| %>
       $container = $('<div id="<%= graph.dom_id %>" />');
       $('#graphs > .graph-container').append($container);
       var graph_<%= i %> = new Graph('<%= graph.type %>', {
