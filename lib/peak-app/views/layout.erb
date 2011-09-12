@@ -24,6 +24,14 @@
   <div id="container">
     <header>
       <img src="/images/header-trans.png" alt="Peak Logo" />
+
+      <div id="range-selector">
+        <input type="text" id="filter" placeholder="Filter Graphs" />
+        <button class="first">1h</button>
+        <button>1d</button>
+        <button>30d</button>
+        <button class="last">1y</button>
+      </div>
     </header>
 
     <div id="main" role="main">
@@ -47,6 +55,7 @@
   <script defer src="/javascripts/vendor/highstock/themes/peak.js"></script>
   <script defer src="/javascripts/compiled/graph.js"></script>
   <script defer src="/javascripts/compiled/data_source.js"></script>
+  <script defer src="/javascripts/compiled/peak.js"></script>
 
   <!--[if lt IE 7 ]>
     <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
