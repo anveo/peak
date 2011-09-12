@@ -1,0 +1,58 @@
+<nav class="overlook">
+  <h3>Collections</h3>
+  <ul class="collection menu">
+    <% Peak.collections.each do |collection| %>
+    <li>
+      <a href="#"><%= collection.name %></a>
+      <ul class="graph" style="display: none;">
+        <li>CPU</li>
+        <li>Memory</li>
+        <li>Disk I/O</li>
+        <li>Network Traffic</li>
+      </ul>
+    </li>
+    <% end %>
+  </ul>
+
+  <h3>Servers</h3>
+  <ul class="servers meun">
+    <li>
+      <a href="#">app1.example.com</a>
+    </li>
+    <li>
+      <a href="#">app2.example.com</a>
+    </li>
+    <li>
+      <a href="#">app3.example.com</a>
+    </li>
+    <li>
+      <a href="#">app3.example.com</a>
+    </li>
+  </ul>
+</nav>
+
+<div id="graphs">
+  <div class="graph-container">
+    <div class="controls"></div>
+  </div>
+</div>
+
+<% content_for :footer do %> 
+  <script type="text/javascript">
+  $(function() {
+
+    <% @graphs.each_with_index do |graph, i| %>
+      $container = $('<div id="<%= graph.dom_id %>" />');
+      $('#graphs > .graph-container').append($container);
+      var graph_<%= i %> = new Graph('<%= graph.type %>', {
+        title: '<%= graph.title %>',
+        domId: '<%= graph.dom_id %>'
+      });
+      <% graph.data_sources.each do |ds| %>
+        graph_<%= i %>.addDataSource('<%= ds.label %>', <%= ds.as_json %>);
+      <% end %>
+      graph_<%= i %>.render();
+    <% end %>
+  });
+  </script>
+<% end %>

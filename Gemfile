@@ -1,13 +1,13 @@
 source :rubygems
 
 gem "activesupport"
-gem "haml"
+#gem "haml"
 gem "i18n"
 gem "json"
 gem "rrd-ffi"
 gem "sass"
 gem "sinatra"
-gem "sinatra-content-for"
+gem "sinatra-content-for2"
 
 group :development do
   gem "coffee-script"

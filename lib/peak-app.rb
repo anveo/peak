@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require 'sinatra/content_for'
+require 'sinatra/content_for2'
 require 'active_support/all'
 require 'json'
 require 'rrd'
@@ -11,7 +11,7 @@ require 'pp'
 module Peak
   class Application < Sinatra::Base
 
-    helpers Sinatra::ContentFor
+    helpers Sinatra::ContentFor2
 
     @app_root = Pathname.new(File.dirname(__FILE__)).parent.expand_path
 
@@ -68,7 +68,7 @@ module Peak
         #:x => (Time.now - 13.minutes).to_i * 1000
       #}].to_json
 
-      haml :overlook
+      erb :overlook
     end
   end
 end
