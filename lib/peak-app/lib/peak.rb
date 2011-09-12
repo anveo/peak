@@ -10,12 +10,15 @@ require 'peak/rrd_query'
 module Peak
   @collections = []
   @hosts = []
+  @current_host = nil
   @graphs = []
+  # support both ubuntu and homebrew collectd locations
   @collectd_dir = File.directory?("/var/lib/collectd") ? "/var/lib/collectd/rrd" : "/usr/local/var/lib/collectd"
 
   class << self
     attr_accessor :collections
     attr_accessor :hosts
+    attr_accessor :current_host
     attr_accessor :graphs
     attr_accessor :collectd_dir
 

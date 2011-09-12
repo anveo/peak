@@ -18,7 +18,7 @@
   <ul class="servers menu">
     <% Peak.hosts.each do |host| %>
     <li>
-      <a href="#"><%= host.name %></a>
+      <a href="/hosts/<%= host.name %>"><%= host.name %></a>
     </li>
     <% end %>
   </ul>
@@ -34,10 +34,11 @@
   <script type="text/javascript">
   $(function() {
 
-    <% Peak.graphs.each_with_index do |graph, i| %>
+    <% if Peak.current_host %>
+    <% Peak.current_host.graphs.each_with_index do |graph, i| %>
       $container = $('<div id="<%= graph.dom_id %>" />');
       $('#graphs > .graph-container').append($container);
-      var graph_<%= i %> = new Graph('<%= graph.type %>', {
+      var graph_<%= i %> = new Graph('<%= graph.type.to_s %>', {
         title: '<%= graph.title %>',
         domId: '<%= graph.dom_id %>'
       });
@@ -45,6 +46,7 @@
         graph_<%= i %>.addDataSource('<%= ds.label %>', <%= ds.as_json %>);
       <% end %>
       graph_<%= i %>.render();
+    <% end %>
     <% end %>
   });
   </script>

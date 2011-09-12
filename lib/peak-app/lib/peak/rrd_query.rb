@@ -1,14 +1,13 @@
 module Peak
   class RRDQuery
-    def self.as_json(filename, start_at, end_at)
+    def self.as_json(filename, start_at, end_at, index = 1)
 
-      # support both ubuntu and homebrew collectd locations
-      rrd_path = File.directory?("/var/lib/collectd") ? "/var/lib/collectd/rrd" : "/usr/local/var/lib/collectd"
-      filename = File.join(rrd_path, "#{`hostname`.strip}/#{filename}.rrd")
+      filename = File.join(Peak.collectd_dir, "#{Peak.current_host.name}/#{filename}.rrd")
 
       rrd = RRD::Base.new(filename)
-      stats = rrd.fetch(:average, :start => 1.hour.ago, :end => Time.now)
+      stats = rrd.fetch(:average, :start => 1.month.ago, :end => Time.now)
 
+      #p filename
       #p rrd
       #p rrd.error
 
@@ -19,7 +18,7 @@ module Peak
 
       data = []
       stats.each do |s|
-        val = s[1].nan? ? 0.0 : s[1].round(2)
+        val = s[index].nan? ? 0.0 : s[index].round(2)
         timestamp = s[0] * 1000
 
         if filename =~ /memory/

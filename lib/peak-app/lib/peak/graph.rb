@@ -9,7 +9,12 @@ module Peak
     attr_accessor :data_sources
     attr_reader :y_min, :y_max
 
+    def self.find(id)
+      Peak.graphs.find { |g| g.id == id }
+    end
+
     def initialize(id, &block)
+      @id = id
       @title = id.humanize
       @data_sources = []
       @type = :area
@@ -18,7 +23,7 @@ module Peak
     end
 
     def add_source(path, options)
-      @data_sources << DataSource.new(path, options[:label])
+      @data_sources << DataSource.new(path, options[:label], options[:index])
     end
 
     def dom_id

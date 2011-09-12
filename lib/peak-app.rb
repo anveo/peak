@@ -18,24 +18,18 @@ module Peak
     set :public, @app_root.join('lib/peak-app/public')
     set :views,  @app_root.join('lib/peak-app/views')
 
-    get '/' do
-
+    before do
       Peak.load_config
+    end
 
-      #@deploy_data = [{
-        #:title => 'Deploy',
-        #:x => (Time.now - 50.minutes).to_i * 1000
-      #},
-      #{
-        #:title => 'Deploy',
-        #:x => (Time.now - 20.minutes).to_i * 1000
-      #}].to_json
+    get '/' do
+      erb :overlook
+    end
 
-      #@analytics_data = [{
-        #:title => 'Article on TechCrunch',
-        #:x => (Time.now - 13.minutes).to_i * 1000
-      #}].to_json
-
+    get '/hosts/:hostname' do
+      @hostname = params[:hostname]
+      @host = Host.find(@hostname)
+      Peak.current_host = @host
       erb :overlook
     end
   end

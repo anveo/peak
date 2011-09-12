@@ -10,8 +10,8 @@ module Peak
       Peak.collections << Collection.new(name)
     end
 
-    def self.host(name)
-      Peak.hosts << Host.new(name)
+    def self.host(name, &block)
+      Peak.hosts << Host.new(name, &block)
     end
 
     def self.graph(name, &block)
