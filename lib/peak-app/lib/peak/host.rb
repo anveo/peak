@@ -17,7 +17,6 @@ module Peak
       # we store the id string, not actual graph instance because these names may
       # be added before the graph instance exists
       @graph_names << id
-      p @graph_names
     end
 
     def graphs
