@@ -7,6 +7,7 @@ module Peak
     attr_accessor :title
     attr_accessor :type
     attr_accessor :data_sources
+    attr_accessor :time_range
     attr_reader :y_min, :y_max
 
     def self.find(id)
@@ -18,12 +19,13 @@ module Peak
       @title = id.humanize
       @data_sources = []
       @type = :area
+      @time_range = "1h"
 
       instance_eval(&block) if block
     end
 
     def add_source(path, options)
-      @data_sources << DataSource.new(path, options[:label], options[:index])
+      @data_sources << DataSource.new(self, path, options[:label], options[:index])
     end
 
     def dom_id

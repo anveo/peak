@@ -2,6 +2,7 @@ module Peak
   class Host
     attr_accessor :name
     attr_accessor :graph_names
+    attr_accessor :time_range
 
     def self.find(hostname)
       Peak.hosts.find { |h| h.name == hostname }
@@ -10,7 +11,14 @@ module Peak
     def initialize(name, &block)
       @name = name
       @graph_names = []
+      @time_range = "1h"
       instance_eval(&block) if block
+    end
+
+    def time_range(range)
+      graphs.each do |g|
+        g.time_range = range
+      end
     end
 
     def graph(id)

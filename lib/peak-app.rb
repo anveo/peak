@@ -29,6 +29,7 @@ module Peak
     get '/hosts/:hostname' do
       @hostname = params[:hostname]
       @host = Host.find(@hostname)
+      @host.time_range(params[:time_range] || "1h")
       Peak.current_host = @host
       erb :overlook
     end

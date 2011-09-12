@@ -5,7 +5,7 @@ module Peak
       filename = File.join(Peak.collectd_dir, "#{Peak.current_host.name}/#{filename}.rrd")
 
       rrd = RRD::Base.new(filename)
-      stats = rrd.fetch(:average, :start => 1.month.ago, :end => Time.now)
+      stats = rrd.fetch(:average, :start => start_at, :end => Time.now)
 
       #p filename
       #p rrd

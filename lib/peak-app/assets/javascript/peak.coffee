@@ -12,4 +12,10 @@ $(document).ready ->
       else
         $(this).hide()
 
+  $('button').click (e) ->
+    timeRange = $(this).html()
+    newUrl = $.param.querystring window.location.href, "time_range=#{timeRange}"
+    window.location = newUrl
+    #for graph in host.graphs
+      #graph.update()
 

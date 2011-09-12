@@ -1,7 +1,8 @@
 root = exports ? this
 
 class root.Graph
-  constructor: (type, options) ->
+  constructor: (host, type, options) ->
+    @host = host
     @stacking = "none"
     @type = type
 
@@ -14,15 +15,15 @@ class root.Graph
     @chart = null
     @dataSources = []
 
-  addDataSource: (title, data) ->
-    @dataSources.push (new DataSource(title, data))
+  addDataSource: (title, path, data) ->
+    @dataSources.push (new DataSource(this, title, path, data))
 
   buildChartOptions: () ->
     chartOptions =
       chart:
         renderTo: @domId
       title:
-        text: @title
+        text: "#{@host.name} - #{@title}"
       yAxis:
         text: ''
       navigator:
@@ -34,10 +35,13 @@ class root.Graph
         inputEnabled: false
       credits:
         enabled: false
-      plotOptions:
+      plotOptions: null,
+      series: []
+
+    if @type == "area" || @type == "stacked"
+      chartOptions.plotOptions =
         area:
           stacking: @stacking
-      series: []
 
     for ds in @dataSources
       series =
@@ -46,8 +50,13 @@ class root.Graph
         type: @type
 
       chartOptions.series.push(series)
+      ds.seriesIndex - chartOptions.series.length - 1
 
     chartOptions
+
+  update: (timeRange) ->
+    for ds in @dataSources
+      ds.fetch()
 
   render: ->
     options = @buildChartOptions()

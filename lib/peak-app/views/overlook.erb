@@ -35,18 +35,20 @@
   $(function() {
 
     <% if Peak.current_host %>
-    <% Peak.current_host.graphs.each_with_index do |graph, i| %>
-      $container = $('<div id="<%= graph.dom_id %>" />');
-      $('#graphs > .graph-container').append($container);
-      var graph_<%= i %> = new Graph('<%= graph.type.to_s %>', {
-        title: '<%= graph.title %>',
-        domId: '<%= graph.dom_id %>'
-      });
-      <% graph.data_sources.each do |ds| %>
-        graph_<%= i %>.addDataSource('<%= ds.label %>', <%= ds.as_json %>);
+      window.host = new Host('<%= Peak.current_host.name %>');
+      <% Peak.current_host.graphs.each_with_index do |graph, i| %>
+        $container = $('<div id="<%= graph.dom_id %>" />');
+        $('#graphs > .graph-container').append($container);
+        var graph = new Graph(host, '<%= graph.type.to_s %>', {
+          title: '<%= graph.title %>',
+          domId: '<%= graph.dom_id %>'
+        });
+        <% graph.data_sources.each do |ds| %>
+          graph.addDataSource('<%= ds.label %>', '<%= ds.path %>', <%= ds.as_json %>);
+        <% end %>
+        host.addGraph(graph);
       <% end %>
-      graph_<%= i %>.render();
-    <% end %>
+    host.render();
     <% end %>
   });
   </script>
