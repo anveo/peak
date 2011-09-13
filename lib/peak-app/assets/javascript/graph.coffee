@@ -35,13 +35,14 @@ class root.Graph
         inputEnabled: false
       credits:
         enabled: false
-      plotOptions: null,
       series: []
 
     if @type == "area" || @type == "stacked"
-      chartOptions.plotOptions =
-        area:
-          stacking: @stacking
+      areaOptions =
+        plotOptions:
+          area:
+            stacking: @stacking
+      $.extend(chartOptions, areaOptions)
 
     for ds in @dataSources
       series =
