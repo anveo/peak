@@ -3,11 +3,17 @@ TODO
 
 This README isn't ready yet
 
+NOTES
+=====
+
+To run in development:
+
+    shotgun -P lib/peak-app/public
+
 Installation
 ============
 
     apt-get install librrd-dev
-
     brew install rrdtool
 
 Goals
