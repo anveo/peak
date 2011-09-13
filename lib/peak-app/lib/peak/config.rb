@@ -1,7 +1,8 @@
 module Peak
   class Config
     def self.load_config
-      config_file = File.expand_path(File.join(__FILE__, "../../../../../", "config/config.rb"))
+      config_file = '/etc/peak.conf'
+      throw "Missing /etc/peak.conf" unless File.exist? config_file
 
       instance_eval(File.read(config_file))
     end
