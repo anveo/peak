@@ -3,7 +3,7 @@ root = exports ? this
 class root.Graph
   constructor: (host, type, options) ->
     @host = host
-    @stacking = "none"
+    @stacking = null
     @type = type
 
     if @type == "stacked"
@@ -16,7 +16,7 @@ class root.Graph
     @dataSources = []
 
   addDataSource: (title, path, data) ->
-    @dataSources.push (new DataSource(this, title, path, data))
+    @dataSources.push (new DataSource(this, path, title, data))
 
   buildChartOptions: () ->
     chartOptions =
