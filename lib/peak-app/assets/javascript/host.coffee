@@ -1,8 +1,9 @@
 root = exports ? this
 
 class root.Host
-  constructor: (name) ->
+  constructor: (name, alias='') ->
     @name = name
+    @alias = alias
     @graphs = []
     @timeRange = '1h'
 

@@ -18,7 +18,11 @@
   <ul class="servers menu">
     <% Peak.hosts.each do |host| %>
     <li>
-      <a href="/hosts/<%= host.name %>"><%= host.name %></a>
+      <% if host.the_alias.blank? %>
+        <a href="/hosts/<%= host.name %>"><%= host.name %></a>
+      <% else %>
+        <a href="/hosts/<%= host.the_alias %>"><%= host.the_alias %></a>
+      <% end %>
     </li>
     <% end %>
   </ul>
@@ -35,7 +39,7 @@
   $(function() {
 
     <% if Peak.current_host %>
-      window.host = new Host('<%= Peak.current_host.name %>');
+      window.host = new Host('<%= Peak.current_host.name %>', '<%= Peak.current_host.the_alias %>');
       <% Peak.current_host.graphs.each_with_index do |graph, i| %>
         $container = $('<div id="<%= graph.dom_id %>" />');
         $('#graphs > .graph-container').append($container);

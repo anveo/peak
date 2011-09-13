@@ -18,5 +18,9 @@ module Peak
     def self.graph(name, &block)
       Peak.graphs << Graph.new(name, &block)
     end
+
+    def self.graph_set(name, &block)
+      Peak.graph_sets << GraphSet.new(name, &block)
+    end
   end
 end
