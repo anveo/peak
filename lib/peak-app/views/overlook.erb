@@ -21,7 +21,7 @@
       <% if host.the_alias.blank? %>
         <a href="/hosts/<%= host.name %>"><%= host.name %></a>
       <% else %>
-        <a href="/hosts/<%= host.the_alias %>"><%= host.the_alias %></a>
+        <a href="/hosts/<%= host.name %>"><%= host.the_alias %></a>
       <% end %>
     </li>
     <% end %>
