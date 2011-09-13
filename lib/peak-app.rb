@@ -15,13 +15,11 @@ module Peak
 
     @app_root = Pathname.new(File.dirname(__FILE__)).parent.expand_path
 
-    set :public, @app_root.join('lib/peak-app/public')
-    set :views,  @app_root.join('lib/peak-app/views')
+    set :root, @app_root.join('lib/peak-app')
+    set :public, root.join('public')
+    set :views,  root.join('views')
 
     Peak.load_config
-
-    before do
-    end
 
     get '/' do
       erb :overlook
