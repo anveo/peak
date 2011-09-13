@@ -29,6 +29,10 @@ module Peak
           val = (val / 1024 / 1024 / 1024).round(2)
         end
 
+        if filename =~ /octet/
+          val = (val / 1024).round(2)
+        end
+
         data << [timestamp, val]
       end
 
