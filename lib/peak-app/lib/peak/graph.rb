@@ -5,7 +5,7 @@ module Peak
 
     attr_accessor :id
     attr_accessor :title
-    attr_accessor :type
+    attr_accessor :graph_type
     attr_accessor :data_sources
     attr_accessor :time_range
     attr_reader :y_min, :y_max
@@ -18,10 +18,14 @@ module Peak
       @id = id
       @title = id.humanize
       @data_sources = []
-      @type = :area
+      @graph_type = :area
       @time_range = "1h"
 
       instance_eval(&block) if block
+    end
+
+    def type (type = :area)
+      @graph_type = type
     end
 
     def add_source(path, options)

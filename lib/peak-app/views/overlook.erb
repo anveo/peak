@@ -39,7 +39,7 @@
       <% Peak.current_host.graphs.each_with_index do |graph, i| %>
         $container = $('<div id="<%= graph.dom_id %>" />');
         $('#graphs > .graph-container').append($container);
-        var graph = new Graph(host, '<%= graph.type.to_s %>', {
+        var graph = new Graph(host, '<%= graph.graph_type.to_s %>', {
           title: '<%= graph.title %>',
           domId: '<%= graph.dom_id %>'
         });
